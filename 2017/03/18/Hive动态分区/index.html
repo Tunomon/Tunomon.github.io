@@ -7,7 +7,7 @@
     
 
     <title>
-      Hive | Mr.Fan 
+      Hive表动态分区 | Mr.Fan 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,13 +16,25 @@
     
     
 
-    <meta property="og:type" content="article">
-<meta property="og:title" content="Hive | Mr.Fan">
+    <meta name="description" content="Hive表动态分区[TOC]
+1.动态分区应用场景
+静态分区和动态分区的区别在于导入数据时，是手动输入分区名称，还是通过数据来判断数据分区。对于大数据批量导入来说，显然采用动态分区更为简单方便。  
+应用场景为，若需要导入一个系统的历史数据，且这些历史数据的数据量较大，需要根据其中某个字段的值进行分区时，可以使用动态分区功能。例如：一个系统需要从Oracle中导入收货表数据到Hive中进行使用，需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive表动态分区 | Mr.Fan">
 <meta property="og:url" content="http://tunomon.me/2017/03/18/Hive动态分区/index.html">
 <meta property="og:site_name" content="Mr.Fan">
-<meta property="og:updated_time" content="2017-03-18T10:38:50.606Z">
+<meta property="og:description" content="Hive表动态分区[TOC]
+1.动态分区应用场景
+静态分区和动态分区的区别在于导入数据时，是手动输入分区名称，还是通过数据来判断数据分区。对于大数据批量导入来说，显然采用动态分区更为简单方便。  
+应用场景为，若需要导入一个系统的历史数据，且这些历史数据的数据量较大，需要根据其中某个字段的值进行分区时，可以使用动态分区功能。例如：一个系统需要从Oracle中导入收货表数据到Hive中进行使用，需">
+<meta property="og:updated_time" content="2017-03-18T12:41:57.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hive | Mr.Fan">
+<meta name="twitter:title" content="Hive表动态分区 | Mr.Fan">
+<meta name="twitter:description" content="Hive表动态分区[TOC]
+1.动态分区应用场景
+静态分区和动态分区的区别在于导入数据时，是手动输入分区名称，还是通过数据来判断数据分区。对于大数据批量导入来说，显然采用动态分区更为简单方便。  
+应用场景为，若需要导入一个系统的历史数据，且这些历史数据的数据量较大，需要根据其中某个字段的值进行分区时，可以使用动态分区功能。例如：一个系统需要从Oracle中导入收货表数据到Hive中进行使用，需">
     
     
     
@@ -185,7 +197,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">Hive</h1>
+    <h1 class="post-title">Hive表动态分区</h1>
 
     
 
@@ -197,6 +209,11 @@ classes that you can use:
           
 
           
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Hive/">Hive</a>
+            </font>
+          
 
       </span>
     </div>
@@ -206,7 +223,53 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <h1 id="Hive表动态分区"><a href="#Hive表动态分区" class="headerlink" title="Hive表动态分区"></a>Hive表动态分区</h1><p>[TOC]</p>
+<h2 id="1-动态分区应用场景"><a href="#1-动态分区应用场景" class="headerlink" title="1.动态分区应用场景"></a>1.动态分区应用场景</h2><ol>
+<li>静态分区和动态分区的区别在于导入数据时，是手动输入分区名称，还是通过数据来判断数据分区。对于大数据批量导入来说，显然采用动态分区更为简单方便。  </li>
+<li>应用场景为，若需要导入一个系统的历史数据，且这些历史数据的数据量较大，需要根据其中某个字段的值进行分区时，可以使用动态分区功能。例如：一个系统需要从Oracle中导入收货表数据到Hive中进行使用，需要根据其中的创建时间，即Created_Date字段进行分区，此时可以使用动态分区功能。  </li>
+</ol>
+<h2 id="2-动态分区的相关设置"><a href="#2-动态分区的相关设置" class="headerlink" title="2. 动态分区的相关设置"></a>2. 动态分区的相关设置</h2><p>设置如下参数开启动态分区（每个窗口设置一次）：  </p>
+<ul>
+<li><p>hive.exec.dynamic.partition=true  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认值：false</div><div class="line">描述：是否允许动态分区</div></pre></td></tr></table></figure>
+</li>
+<li><p>hive.exec.dynamic.partition.mode=nonstrict  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认值：strict</div><div class="line">描述：strict是避免全分区字段是动态的，必须有至少一个分区字段是指定有值的</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>设置如下参数配置动态分区的使用环境：</p>
+<ul>
+<li><p>hive.exec.max.dynamic.partitions.pernode=100</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认值：100</div><div class="line">描述：each mapper or reducer可以创建的最大动态分区数</div></pre></td></tr></table></figure>
+</li>
+<li><p>hive.exec.max.dynamic.partitions=1000</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认值：1000</div><div class="line">描述：一个DML操作可以创建的最大动态分区数</div></pre></td></tr></table></figure>
+</li>
+<li><p>hive.exec.max.created.files=100000</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">默认值：100000</div><div class="line">描述：一个DML操作可以创建的文件数</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-动态分区使用"><a href="#3-动态分区使用" class="headerlink" title="3. 动态分区使用"></a>3. 动态分区使用</h2><p>1、 首先，确定要导入的表，利用创建任务，或直接使用sqoop命令的方式，将所需的表导入到hive中，此处以利用测试表为例，表名为database.test_table，分区字段为CREATED_DATE。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;workflow-app&gt;</div><div class="line">	 &lt;start to=&quot;sqoop&quot; /&gt;</div><div class="line">    &lt;action name=&quot;sqoop&quot;&gt;</div><div class="line">        &lt;sqoop&gt;</div><div class="line">          &lt;job-xml&gt;/user/admin/hive-site.xml&lt;/job-xml&gt;</div><div class="line">          &lt;arg&gt;import&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--connect&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;jdbc:oracle:thin:@//</div><div class="line">          **.***.**.**:****/****&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--username&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;*****&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--password&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;******&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;--verbose&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--outdir&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;/usr/bin/java&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--table&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;database.test_table&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;--delete-target-dir&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--hive-import&lt;/arg&gt; </div><div class="line">          &lt;arg&gt;--hive-table&lt;/arg&gt;                           </div><div class="line">          &lt;arg&gt;database.test_table&lt;/arg&gt; </div><div class="line">          &lt;arg&gt;--null-string&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;&apos;\\N&apos;&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;--null-non-string&lt;/arg&gt;</div><div class="line">      		&lt;arg&gt;&apos;\\N&apos;&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--escaped-by&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;\\&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;--fields-terminated-by&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;&quot;\0001&quot;&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;-m&lt;/arg&gt;</div><div class="line">          &lt;arg&gt;1&lt;/arg&gt;</div><div class="line">        &lt;/sqoop&gt;</div><div class="line">        &lt;ok to=&quot;end&quot;/&gt;</div><div class="line">        &lt;error to=&quot;kill&quot;/&gt;</div><div class="line">    &lt;/action&gt;</div><div class="line"></div><div class="line">    &lt;end name=&quot;end&quot;/&gt;</div><div class="line">    &lt;kill name=&quot;kill&quot;&gt;</div><div class="line">       &lt;message&gt;Sqoop failed, error message[\$\&#123;wf:errorMessage(wf:lastErrorNode())&#125;]&lt;/message&gt;</div><div class="line">    &lt;/kill&gt;</div><div class="line">&lt;/workflow-app&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：一般使用“\0001”作为分割符号，常用的“|”与“，”都可能会在数据中出现，使用的话会导致脏数据的产生。</p>
+</blockquote>
+<p>2、 当任务执行成功后，导入数据到hive表中后，此表名称为s_test_table。此时再创建一个结构与此表类似，但是带有分区列的表。以此表为例，语句如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE   </div><div class="line">`database.s_test_table_par`(</div><div class="line">  row_id              	string,</div><div class="line">  cust_code           	string,</div><div class="line">  goods_code          	string</div><div class="line">)</div><div class="line">PARTITIONED BY (</div><div class="line">  `pt` string</div><div class="line">)</div><div class="line">ROW FORMAT SERDE</div><div class="line">&apos;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&apos;</div><div class="line">WITH SERDEPROPERTIES (</div><div class="line">  &apos;field.delim&apos;=&apos;\001&apos;,</div><div class="line">  &apos;line.delim&apos;=&apos;\n&apos;,</div><div class="line">  &apos;serialization.format&apos;=&apos;\001&apos;</div><div class="line">);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：此处的ROW FORMAT SERDE根据自己的实际需要进行设置，此处设置的是与sqoop导过来的表相同的设置。</p>
+</blockquote>
+<p>3、 接着需要把原表中的数据，以CREATED_DATE这一列为分区列导入到新创建的空的分区表中。以此表为例，语句如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">insert overwrite table s_test_table_par partition(`pt`)</div><div class="line">select</div><div class="line">  row_id, cust_code,, goods_code, receipt_cnt,     </div><div class="line">  to_date(`created_date`) as `pt`</div><div class="line">from test_table;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<br>  1.将表中字段as为pt字段的这个需要放在select语句中查询的最后一个字段；<br> 2.to_date为hive中的函数，可以将时间类型的字段的日期部分截取出来，类似函数还有month(截取月)，day(截取天)等。<br> 3.执行这个命令需要将上面相关设置中的each mapper or reducer可以创建的最大动态分区数与一个DML操作可以创建的最大动态分区数等数量设置增大，否则若超过默认值会报错。</p>
+</blockquote>
+<p>4、 将历史数据导入hive表，并建立分区完毕后，若hdfs空间有限，可以删去未分区的导入的数据表并将分区改名为自己想要的名字，改名语句为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE table_name RENAME TO new_table_name;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：增量拉取同一分区中每天插入数据，则能够带–hive-overwrite，若是一些小表，可以做到每天全量拉全量删，也可以带此参数。–hive-overwrite会全部覆盖。</p>
+</blockquote>
+
   </section>
 
   
