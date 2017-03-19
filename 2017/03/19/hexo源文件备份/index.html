@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      hexo源文件自动备份 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="前言hexo是一个生成静态网页的博客框架，利用这个框架+GitHub Page生成自己的博客十分方便。但是有一个问题，就是更换电脑的时候，Hexo源文件的备份问题，如果没有及时备份到Hexo的源文件，那么在更换电脑后进行博客的更新等操作就十分的麻烦了，我也刚好遇见了这种情况。所以借鉴一下网上各位大神的方法，做一下设置，能够自动备份Hexo的源文件。
+步骤实现新建git仓库1.新建一个仓库，我这里命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo源文件自动备份 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2017/03/19/hexo源文件备份/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="前言hexo是一个生成静态网页的博客框架，利用这个框架+GitHub Page生成自己的博客十分方便。但是有一个问题，就是更换电脑的时候，Hexo源文件的备份问题，如果没有及时备份到Hexo的源文件，那么在更换电脑后进行博客的更新等操作就十分的麻烦了，我也刚好遇见了这种情况。所以借鉴一下网上各位大神的方法，做一下设置，能够自动备份Hexo的源文件。
+步骤实现新建git仓库1.新建一个仓库，我这里命">
+<meta property="og:image" content="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fbackup2017319114535.jpg">
+<meta property="og:updated_time" content="2017-03-19T05:49:49.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo源文件自动备份 | Mr.Fan">
+<meta name="twitter:description" content="前言hexo是一个生成静态网页的博客框架，利用这个框架+GitHub Page生成自己的博客十分方便。但是有一个问题，就是更换电脑的时候，Hexo源文件的备份问题，如果没有及时备份到Hexo的源文件，那么在更换电脑后进行博客的更新等操作就十分的麻烦了，我也刚好遇见了这种情况。所以借鉴一下网上各位大神的方法，做一下设置，能够自动备份Hexo的源文件。
+步骤实现新建git仓库1.新建一个仓库，我这里命">
+<meta name="twitter:image" content="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fbackup2017319114535.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">hexo源文件自动备份</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-03-19" class="post-meta__date date">2017-03-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/hexo/">hexo</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>hexo是一个生成静态网页的博客框架，利用这个框架+GitHub Page生成自己的博客十分方便。但是有一个问题，就是更换电脑的时候，Hexo源文件的备份问题，如果没有及时备份到Hexo的源文件，那么在更换电脑后进行博客的更新等操作就十分的麻烦了，我也刚好遇见了这种情况。所以借鉴一下网上各位大神的方法，做一下设置，能够自动备份Hexo的源文件。</p>
+<h2 id="步骤实现"><a href="#步骤实现" class="headerlink" title="步骤实现"></a>步骤实现</h2><h5 id="新建git仓库"><a href="#新建git仓库" class="headerlink" title="新建git仓库"></a>新建git仓库</h5><p>1.新建一个仓库，我这里命名仓库名为Hexo。因为本地的源文件所在的文件夹之前已经设置成为了git文件夹，所以不需要git init，如果是还没设置的话需要git init；</p>
+<p>2.git remote remove 原来的远程仓库，git remote add 新的远程仓库，名称还是origin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote remove origin</div><div class="line">git remote add origin git@github.com:Tunomon/Hexo.git</div></pre></td></tr></table></figure>
+<p>3.提交当前的所有文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m &quot;init&quot;</div><div class="line">git push -u origin master</div></pre></td></tr></table></figure>
+<h5 id="安装shelljs模块"><a href="#安装shelljs模块" class="headerlink" title="安装shelljs模块"></a>安装shelljs模块</h5><p>1.输入<code>npm install --save shelljs</code>安装shelljs模块</p>
+<p>2.在Hexo根目录的scripts文件夹下新建一个js文件（若没有scripts文件夹则新建一个），脚本内容如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'shelljs/global'</span>);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">	hexo.on(<span class="string">'deployAfter'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="comment">//当deploy完成后执行备份</span></div><div class="line">		run();</div><div class="line">	&#125;);</div><div class="line">&#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"产生了一个错误&lt;(￣3￣)&gt; !，错误详情为："</span> + e.toString());</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span> (!which(<span class="string">'git'</span>)) &#123;</div><div class="line">		echo(<span class="string">'Sorry, this script requires git'</span>);</div><div class="line">		exit(<span class="number">1</span>);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		echo(<span class="string">"======================Auto Backup Begin==========================="</span>);</div><div class="line">		cd(<span class="string">'H:\Work\Blog'</span>);    <span class="comment">//此处修改为Hexo根目录路径</span></div><div class="line">		<span class="keyword">if</span> (exec(<span class="string">'git add --all'</span>).code !== <span class="number">0</span>) &#123;</div><div class="line">			echo(<span class="string">'Error: Git add failed'</span>);</div><div class="line">			exit(<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (exec(<span class="string">'git commit -am "Form auto backup script\'s commit"'</span>).code !== <span class="number">0</span>) &#123;</div><div class="line">			echo(<span class="string">'Error: Git commit failed'</span>);</div><div class="line">			exit(<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (exec(<span class="string">'git push origin master'</span>).code !== <span class="number">0</span>) &#123;</div><div class="line">			echo(<span class="string">'Error: Git push failed'</span>);</div><div class="line">			exit(<span class="number">1</span>);</div><div class="line">		&#125;</div><div class="line">		echo(<span class="string">"==================Auto Backup Complete============================"</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ps.需要更改17行为目录路径，若远程仓库名称不为origin的话，还需要更改28行的push命令。</p>
+<h2 id="结果查看"><a href="#结果查看" class="headerlink" title="结果查看"></a>结果查看</h2><p>在博客目录下输入<code>hexo d -g</code></p>
+<p>显示结果为：</p>
+<p><img src="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fbackup2017319114535.jpg" alt="自动备份"></p>
+<blockquote>
+<p>网上参考的有两种方案，一种是hexo deploy以后自动上传源文件到仓库里面，另一种是手动上传源文件，然后自动更新博客的页面。我参考了前者，参考文章为：<a href="http://zhujiegao.com/2015/12/06/automatic-backup/" target="_blank" rel="external">自动备份Hexo博客源文件</a>；若对后者有兴趣，参考文章为：<a href="https://formulahendry.github.io/2016/12/04/hexo-ci/" target="_blank" rel="external">Hexo的版本控制与持续集成</a> 。感谢大神的分享与帮助</p>
+</blockquote>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
