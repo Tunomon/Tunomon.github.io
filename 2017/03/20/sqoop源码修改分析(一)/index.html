@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      sqoop源码修改分析（一） | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="前言在实习过程中，主要使用sqoop进行数据的导入导出，实际应用过程中，因为项目需要，sqoop1.4.6版本暂时不能够满足实际的应用需求，所以根据需要进行了源码修改，因为时间比较长，部分修改细节忘记了，但还是记录一下主要的修改的分析的过程。
+背景
+Sqoop从Oracle导入的时候，如果对面数据库的编码格式不是UTF-8，比如他们是ISO-8859-1的话，那么导入过来的数据会产生乱码，Sqoo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqoop源码修改分析（一） | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2017/03/20/sqoop源码修改分析(一)/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="前言在实习过程中，主要使用sqoop进行数据的导入导出，实际应用过程中，因为项目需要，sqoop1.4.6版本暂时不能够满足实际的应用需求，所以根据需要进行了源码修改，因为时间比较长，部分修改细节忘记了，但还是记录一下主要的修改的分析的过程。
+背景
+Sqoop从Oracle导入的时候，如果对面数据库的编码格式不是UTF-8，比如他们是ISO-8859-1的话，那么导入过来的数据会产生乱码，Sqoo">
+<meta property="og:image" content="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fsqoop12017319154653.jpg">
+<meta property="og:updated_time" content="2017-03-20T09:32:35.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqoop源码修改分析（一） | Mr.Fan">
+<meta name="twitter:description" content="前言在实习过程中，主要使用sqoop进行数据的导入导出，实际应用过程中，因为项目需要，sqoop1.4.6版本暂时不能够满足实际的应用需求，所以根据需要进行了源码修改，因为时间比较长，部分修改细节忘记了，但还是记录一下主要的修改的分析的过程。
+背景
+Sqoop从Oracle导入的时候，如果对面数据库的编码格式不是UTF-8，比如他们是ISO-8859-1的话，那么导入过来的数据会产生乱码，Sqoo">
+<meta name="twitter:image" content="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fsqoop12017319154653.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">sqoop源码修改分析（一）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-03-20" class="post-meta__date date">2017-03-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/sqoop/">sqoop</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在实习过程中，主要使用sqoop进行数据的导入导出，实际应用过程中，因为项目需要，sqoop1.4.6版本暂时不能够满足实际的应用需求，所以根据需要进行了源码修改，因为时间比较长，部分修改细节忘记了，但还是记录一下主要的修改的分析的过程。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ol>
+<li>Sqoop从Oracle导入的时候，如果对面数据库的编码格式不是UTF-8，比如他们是ISO-8859-1的话，那么导入过来的数据会产生乱码，Sqoop原生不支持导入的时候选择编码格式，所以需要更改源码解决乱码问题。（本篇分析这个）</li>
+<li>Sqoop原生的支持ParquetFile的导入，但是Parquet格式的导出到关系型数据库（本篇用的Mysql）却会不支持，不能正常导出，会产生乱码；</li>
+</ol>
+<h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><ul>
+<li><p>目标：本篇主要分析第一个问题，就是Sqoop导入的时候，修改源码使得支持对面Oracle多种编码格式的导入，此篇以ISO-8859-1为例子。</p>
+<p>1.从GitHub下载Apache Sqoop的源码<a href="https://github.com/apache/sqoop" target="_blank" rel="external">Sqoop源码</a> ；</p>
+<p>2.分析源码，主要是先找到Sqoop导入时的流程。源码里面有两个sqoop，一个是cloudera的  sqoop，另一个是apache下的sqoop，修改的主要是apache下的sqoop。</p>
+</li>
+</ul>
+<p><img src="http://7xqpl8.com1.z0.glb.clouddn.com/AwA%2BTgMA%2Br0IANJuBQAUpAUA26sFAPW4BgABAAQApnEEAGCCBADOjgQAYMEEAF78AQBAXAIAqJAJAEQ7%2Fsqoop12017319154653.jpg" alt=""></p>
+<p>   3.基本流程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runTool</span><span class="params">(String [] args)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> runTool(args, <span class="keyword">new</span> Configuration());</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (args.length == <span class="number">0</span>) &#123;</div><div class="line">    System.err.println(<span class="string">"Try 'sqoop help' for usage."</span>);</div><div class="line">    System.exit(<span class="number">1</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">int</span> ret = runTool(args);</div><div class="line">  System.exit(ret);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从这里调用runTool(args, new Configuration())方法，此方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runTool</span><span class="params">(String [] args, Configuration conf)</span> </span>&#123;</div><div class="line">    <span class="comment">// Expand the options</span></div><div class="line">    String[] expandedArgs = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      expandedArgs = OptionsFileUtil.expandArguments(args);</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</div><div class="line">      LOG.error(<span class="string">"Error while expanding arguments"</span>, ex);</div><div class="line">      System.err.println(ex.getMessage());</div><div class="line">      System.err.println(<span class="string">"Try 'sqoop help' for usage."</span>);</div><div class="line">      <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    String toolName = expandedArgs[<span class="number">0</span>];</div><div class="line">    Configuration pluginConf = SqoopTool.loadPlugins(conf);</div><div class="line">    SqoopTool tool = SqoopTool.getTool(toolName);</div><div class="line">    <span class="comment">//生成对应的SqoopTool对象</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == tool) &#123;</div><div class="line">      System.err.println(<span class="string">"No such sqoop tool: "</span> + toolName</div><div class="line">          + <span class="string">". See 'sqoop help'."</span>);</div><div class="line">      <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    Sqoop sqoop = <span class="keyword">new</span> Sqoop(tool, pluginConf);</div><div class="line">    <span class="comment">//里面是生成的tool的对象，和其他的参数</span></div><div class="line">    <span class="keyword">return</span> runSqoop(sqoop,</div><div class="line">        Arrays.copyOfRange(expandedArgs, <span class="number">1</span>, expandedArgs.length));</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这里调用了runSqoop方法，再看一下这个runSqoop方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">runSqoop</span><span class="params">(Sqoop sqoop, String [] args)</span> </span>&#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="comment">//这个方法主要是分析出了sqoop命令里面的参数，以--开头的参数都会分析出来</span></div><div class="line">    String [] toolArgs = sqoop.stashChildPrgmArgs(args);</div><div class="line">    <span class="comment">//传给了这个run方法</span></div><div class="line">    <span class="keyword">return</span> ToolRunner.run(sqoop.getConf(), sqoop, toolArgs);</div><div class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">    LOG.error(<span class="string">"Got exception running Sqoop: "</span> + e.toString());</div><div class="line">    e.printStackTrace();</div><div class="line">    <span class="keyword">if</span> (System.getProperty(SQOOP_RETHROW_PROPERTY) != <span class="keyword">null</span>) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从ToolRunner.run这个方法开始，就放入了一些设置，最后调回Sqoop中的run方法。一系列调用以后，根据Sqoop命令中对应的模式，进入到对应的Tool方法中。Import时，则进入到ImportTool中，后进入到importTable方法，import方法主要进行导入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">importTable</span><span class="params">(SqoopOptions options, String tableName,</span></span></div><div class="line">            HiveImport hiveImport) <span class="keyword">throws</span> IOException, ImportException &#123;</div><div class="line">      String jarFile = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">      <span class="comment">// Generate the ORM code for the tables.</span></div><div class="line">      jarFile = codeGenerator.generateORM(options, tableName);</div><div class="line"></div><div class="line">      Path outputPath = getOutputPath(options, tableName);</div><div class="line"></div><div class="line">      <span class="comment">// Do the actual import.</span></div><div class="line">      ImportJobContext context = <span class="keyword">new</span> ImportJobContext(tableName, jarFile,</div><div class="line">              options, outputPath);</div><div class="line"></div><div class="line">      <span class="comment">// If we're doing an incremental import, set up the</span></div><div class="line">      <span class="comment">// filtering conditions used to get the latest records.</span></div><div class="line">      <span class="keyword">if</span> (!initIncrementalConstraints(options, context)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (options.isDeleteMode()) &#123;</div><div class="line">      deleteTargetDir(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != tableName) &#123;</div><div class="line">      <span class="comment">// 执行将表从数据库导入到HDFS。</span></div><div class="line">      manager.importTable(context);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      manager.importQuery(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (options.isAppendMode()) &#123;</div><div class="line">      AppendUtils app = <span class="keyword">new</span> AppendUtils(context);</div><div class="line">      app.append();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (options.getIncrementalMode() == SqoopOptions.IncrementalMode.DateLastModified) &#123;</div><div class="line">      lastModifiedMerge(options, context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// If the user wants this table to be in Hive, perform that post-load.</span></div><div class="line">    <span class="comment">// 有导入到Hive中的参数--hive-import</span></div><div class="line">    <span class="keyword">if</span> (options.doHiveImport()) &#123;</div><div class="line">      <span class="comment">// For Parquet file, the import action will create hive table directly via</span></div><div class="line">      <span class="comment">// kite. So there is no need to do hive import as a post step again.</span></div><div class="line">      <span class="keyword">if</span> (options.getFileLayout() != SqoopOptions.FileLayout.ParquetFile) &#123;</div><div class="line">        hiveImport.importTable(tableName, options.getHiveTableName(), <span class="keyword">false</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    saveIncrementalState(options);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>到这里是导入的基本流程。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
