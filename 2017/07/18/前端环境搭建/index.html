@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      前端环境搭建 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="前端环境搭建
+环境系统：Ubuntu 16.04
+进入系统，首先调整屏幕大小，然后调整网络，需要设置代理，在设置，network里面，写好网络代理的选项，可以正常上网；
+开始安装软件，参考项目说明
+首先更新源：（1）.首先备份原有的：sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup （2）编辑源:sudo gedit /etc/a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端环境搭建 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2017/07/18/前端环境搭建/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="前端环境搭建
+环境系统：Ubuntu 16.04
+进入系统，首先调整屏幕大小，然后调整网络，需要设置代理，在设置，network里面，写好网络代理的选项，可以正常上网；
+开始安装软件，参考项目说明
+首先更新源：（1）.首先备份原有的：sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup （2）编辑源:sudo gedit /etc/a">
+<meta property="og:updated_time" content="2017-07-29T16:47:43.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端环境搭建 | Mr.Fan">
+<meta name="twitter:description" content="前端环境搭建
+环境系统：Ubuntu 16.04
+进入系统，首先调整屏幕大小，然后调整网络，需要设置代理，在设置，network里面，写好网络代理的选项，可以正常上网；
+开始安装软件，参考项目说明
+首先更新源：（1）.首先备份原有的：sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup （2）编辑源:sudo gedit /etc/a">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">前端环境搭建</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-18" class="post-meta__date date">2017-07-18</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/前端/">前端</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="前端环境搭建"><a href="#前端环境搭建" class="headerlink" title="前端环境搭建"></a>前端环境搭建</h1><ol>
+<li>环境系统：Ubuntu 16.04</li>
+<li>进入系统，首先调整屏幕大小，然后调整网络，需要设置代理，在设置，network里面，写好网络代理的选项，可以正常上网；</li>
+<li>开始安装软件，参考<a href="http://11.0.34.207:10080/root/scp-v3-client/wikis/scp-v3-client-dev-guide-v0.1.1" target="_blank" rel="external">项目说明</a></li>
+<li>首先更新源：（1）.首先备份原有的：sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup （2）编辑源:sudo gedit /etc/apt/sources.list （3）更新源：sudo apt-get update </li>
+<li>安装nodejs：sudo apt-get install -y nodejs</li>
+<li>安装nvm，首先需要安装git： sudo apt-get install git  ，然后进行git clone <a href="https://github.com/creationix/nvm.git" target="_blank" rel="external">https://github.com/creationix/nvm.git</a> ~/.nvm &amp;&amp; cd ~/.nvm &amp;&amp; git checkout  `git describe –abbrev=0 –tag’,然后cd ~ , vi .bashrc ,添加source ~/.nvm/nvm.sh 到最后一行，然后source .bashrc.之后进行nvm –version进行查看版本</li>
+<li>安装npm, sudo apt install npm , npm -v 进行检查</li>
+<li>安装yarn，从官方文档上查看安装步骤：<a href="https://yarnpkg.com/zh-Hans/docs/install#alternatives-tab" target="_blank" rel="external">yarn安装</a>，先安装curl：sudo apt install curl.然后 配置仓库：<code>curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo &quot;deb https://dl.yarnpkg.com/debian/ stable main&quot; | sudo tee /etc/apt/sources.list.d/yarn.list</code>,yarn –version查看安装的版本，验证。</li>
+<li>node版本设置。<code>nvm current ;nvm ls-remote; nvm install 7 ; nvm use v7.1.0 ;nvm alias default v7.10.1</code>  </li>
+<li>yarn install。instal 之前需要npm install –python=python2.7，npm install -g node-gyp，npm install –dist-url=<a href="http://npm.taobao.org/mirror/node" target="_blank" rel="external">http://npm.taobao.org/mirror/node</a> –save-dev node-gyp（待定）。之后yarn install，不要用公司内网。</li>
+<li>yarn start-ws:dev;yarn start-app:dev;yarn start-graphql:dev;</li>
+</ol>
+<h2 id="虚拟机搭建遇到的问题"><a href="#虚拟机搭建遇到的问题" class="headerlink" title="虚拟机搭建遇到的问题"></a>虚拟机搭建遇到的问题</h2><ol>
+<li>桥接模式无法使用。   解决方案：恢复虚拟机的网络配置即可出现；</li>
+<li>虚拟机网络无法连接内网。 解决方案：桥接模式，IP手动设置。有可能公司网有限制导致403Forbidden无法登陆。</li>
+<li>gitlab不需要代理直接登录，代理需要过滤掉10、11等ip地址</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>一、淘宝npm扩展</p>
+<p>国内使用npm有时候并不能成功安装包。所以我们可以使用淘宝的npm管理工具来管理。这样速度就会快很多。使用一下命令进行全局安装</p>
+<ol>
+<li>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a>  </li>
+<li>cnpm -v</li>
+</ol>
+<p>二、搜狗拼音输入法</p>
+<p>搜狗拼音输入法直接去官网下载，然后在键盘里搜索添加sogou，添加进去即可。</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
