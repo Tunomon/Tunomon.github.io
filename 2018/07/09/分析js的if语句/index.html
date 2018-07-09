@@ -7,7 +7,7 @@
     
 
     <title>
-      js原型链学习 | Mr.Fan 
+      分析js的if语句 | Mr.Fan 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,23 @@
     
     
 
-    <meta name="description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+    <meta name="description" content="ECMAScript规范分析——分析js的if语句 对于字符串   if语句 12345678let a = &apos;&apos;;if(a)&amp;#123;    &amp;#125;// 对于一个字符串，基本等价于if(a !== &apos;&apos; &amp;amp;&amp;amp; a !== null &amp;amp;&amp;amp; a !== undefined) &amp;#123;   &amp;#125;     ![](https://ws3.sinaimg">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js原型链学习 | Mr.Fan">
-<meta property="og:url" content="http://tunomon.me/2018/07/09/js原型链学习/index.html">
+<meta property="og:title" content="分析js的if语句 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2018/07/09/分析js的if语句/index.html">
 <meta property="og:site_name" content="Mr.Fan">
-<meta property="og:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta property="og:description" content="ECMAScript规范分析——分析js的if语句 对于字符串   if语句 12345678let a = &apos;&apos;;if(a)&amp;#123;    &amp;#125;// 对于一个字符串，基本等价于if(a !== &apos;&apos; &amp;amp;&amp;amp; a !== null &amp;amp;&amp;amp; a !== undefined) &amp;#123;   &amp;#125;     ![](https://ws3.sinaimg">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-09T05:52:07.953Z">
+<meta property="og:image" content="http://tunomon.me/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523192520170.png">
+<meta property="og:image" content="http://tunomon.me/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523194623501.png">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1frljgnbz4xj30z20ti422.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1frli5975ecj318e0hwadv.jpg">
+<meta property="og:updated_time" content="2018-07-09T05:46:43.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js原型链学习 | Mr.Fan">
-<meta name="twitter:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta name="twitter:title" content="分析js的if语句 | Mr.Fan">
+<meta name="twitter:description" content="ECMAScript规范分析——分析js的if语句 对于字符串   if语句 12345678let a = &apos;&apos;;if(a)&amp;#123;    &amp;#125;// 对于一个字符串，基本等价于if(a !== &apos;&apos; &amp;amp;&amp;amp; a !== null &amp;amp;&amp;amp; a !== undefined) &amp;#123;   &amp;#125;     ![](https://ws3.sinaimg">
+<meta name="twitter:image" content="http://tunomon.me/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523192520170.png">
     
     
     
@@ -190,7 +195,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">js原型链学习</h1>
+    <h1 class="post-title">分析js的if语句</h1>
 
     
 
@@ -216,42 +221,58 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="js原型链学习"><a href="#js原型链学习" class="headerlink" title="js原型链学习"></a>js原型链学习</h2><ol>
-<li><p>每个<strong>函数对象</strong>都有一个<code>prototype</code> 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的<strong>原型对象</strong>（prototype属性）；</p>
-<p>JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做<code>__proto__</code> 的内置属性，用于指向创建它的<strong>构造函数</strong>的<strong>原型对象</strong>。</p>
-</li>
-<li><p>函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的<strong>实例</strong>的原型。</p>
-<p>每一个JavaScript对象(除了 null )都具有的一个属性，叫<code>__proto__</code>，这个属性会指向该对象的原型。</p>
-<p>也就是实例的原型是创建它的构造函数的 prototype 属性，也就是构造函数的原型对象。</p>
-</li>
-<li><p>原型对象和原型，原型对象是一个普通对象，而原型是指实例的原型，实例具有的是原型（<code>__proto__</code>），原型对象其实就是指函数的prototype对象。</p>
-</li>
-<li><p>每一个JavaScript对象(除了 null )都具有的一个属性，叫<code>__proto__</code>，这个属性会指向该对象的原型，其值就是创建它的构造函数的原型对象，也就是说指向构造函数的原型对象。</p>
-</li>
-<li><p>原型对象就是 Person.prototype，是一个普通对象</p>
-</li>
-<li><p>构造函数必然是函数对象，所以构造函数必然有<code>prototype</code> 属性指向它的<strong>原型对象</strong></p>
-<p>​</p>
-<p>​</p>
+    <h2 id="ECMAScript规范分析——分析js的if语句"><a href="#ECMAScript规范分析——分析js的if语句" class="headerlink" title="ECMAScript规范分析——分析js的if语句"></a>ECMAScript规范分析——分析js的if语句</h2><ol>
+<li><p>对于字符串 </p>
 <ol>
-<li><p><code>person1.__proto__</code> 是什么？</p>
-<p><code>person1.__proto__</code> 指向person1这个实例的构造函数的原型对象，也就是Person.prototype;换种理解<code>person1.__proto__</code>指向person1的原型，它从构造函数的prototype中获得继承的方法与属性，也就是说它的原型是Person.prototype。</p>
-</li>
-<li><p><code>Person.__proto__</code> 是什么？</p>
-<p><code>Person.__proto__</code>可以理解为Person是一个function，是通过new Function来的，所以是Function的实例，也就是指向Function的原型对象，也就是指向Function.prototype。也可以理解为指向Person这个函数对象的原型，函数对象的构造函数是Funtion，也就是指向Function.prototype。</p>
-</li>
-<li><p><code>Person.prototype.__proto__</code> 是什么？</p>
-<p>分步看，Person.prototype就是指这个构造函数的原型对象，如果new Person的话，实例的原型就是这个，但是它的本质是一个对象，对象的原型就是Object.prototype</p>
-</li>
-<li><p><code>Object.__proto__</code> 是什么？</p>
-<p><code>Object.__proto__</code>同2，Object是一个function，通过new Function来的，是一个专门用来当构造函数创建对象的一个函数对象，所以还是我指向Function.prototype</p>
-</li>
-<li><p><code>Object.prototype__proto__</code> 是什么？</p>
-<p>那么，<code>Object.prototype</code>对象有没有它的原型呢？回答是<code>Object.prototype</code>的原型是<code>null</code>。<code>null</code>没有任何属性和方法，也没有自己的原型。因此，原型链的尽头就是<code>null</code>。</p>
-<p>​</p>
+<li><p>if语句</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">if</span>(a)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对于一个字符串，基本等价于</span></span><br><span class="line"><span class="keyword">if</span>(a !== <span class="string">''</span> &amp;&amp; a !== <span class="literal">null</span> &amp;&amp; a !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>​</p>
+</li>
+</ol>
+<pre><code>![](https://ws3.sinaimg.cn/large/006tNc79ly1frlhv5viwbj31ei0x045v.jpg)
+
+1. 首先**GetValue(exprRef)**
+
+   ![image-20180523192520170](/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523192520170.png)
+
+   再参看Type(V)
+
+   ![](https://ws2.sinaimg.cn/large/006tNc79ly1frli3cyxg6j31f60kyjze.jpg)
+
+   所以走了第一条，并不是引用类型;所以返回字符串本身;
+
+2. 然后执行ToBoolean（字符串）
+
+   ![](https://ws2.sinaimg.cn/large/006tNc79ly1frli5975ecj318e0hwadv.jpg)
+
+   1. 如果是字符串
+      1. 此时两种情况，要不然长度为0；返回false；
+      2. 要不长度不为0，返回true.
+   2. 如果是Null，返回false；
+   3. 如果是undefined，返回false
+</code></pre><ol start="2">
+<li><p>对于对象</p>
+<ol>
+<li><p>首先<strong>GetValue(exprRef)</strong></p>
+<p><img src="/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523192520170.png" alt="image-20180523192520170"></p>
+<p>因为是引用，继续往下走；</p>
+<p><img src="/var/folders/17/gmjh2txs0hn6my86t0gr7p880000gn/T/abnerworks.Typora/image-20180523194623501.png" alt="image-20180523194623501"></p>
+<p>此时getBase的返回值为Object，它的IsPropertyReference是true，但是HasPrimitiveBase是false，所以get方法为base自己即Object的get方法。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>   <strong>这块是重点</strong></p>
+<p>   举个列子<img src="https://ws3.sinaimg.cn/large/006tNc79ly1frljgnbz4xj30z20ti422.jpg" alt=""></p>
+<p>   所以此时base的值是一个Object，假如let data ={ name: ‘zhangsan’};那么此时base的值就是EnvironmentRecord(这块的解释：<a href="https://stackoverflow.com/questions/29353177/what-is-base-value-of-reference-in-ecmascriptecma-262-5-1" target="_blank" rel="noopener">base value</a> the <em>base value</em> is the context in which the referenced name lives)</p>
+<p>   令 get 为 base 的 [[Get]] 内部方法 ;即返回命名属性的值；</p>
+<p>   将 base 作为 this 值，即EnvironmentRecord作为this值，传递 GetReferencedName(V) 为参数，即传递‘data’这个名字，调用 get 内部方法,即获得了data的值，即{ name: ‘zhangsan’}，他是一个Object对象；</p>
+<p>   ​           令 desc 为用属性名 P （‘date’）调用 O 的 [[GetProperty]] 内部方法的结果。</p>
+<ol start="2">
+<li><p>在进行ToBoolean（Object）</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1frli5975ecj318e0hwadv.jpg" alt=""></p>
+<p>返回了true；所以此时无论怎么判断，都是true。</p>
 </li>
 </ol>
 
