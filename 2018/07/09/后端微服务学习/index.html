@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      后端微服务个人学习 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="后端微服务个人学习参考文档：  服务网关的概念；  微服务如何设计公共组件库   中小型互联网公司微服务实践-经验和教训  Spring Cloud在国内中小型公司能用起来吗？  微服务的4个设计原则和19个解决方案 ​   1. 优点： 简单灵活的，能够独立部署 松耦合的，高内聚的，易扩展 语言工具灵活； 复杂度可控等等  2. 缺点： 分布式调用造成的性能、延迟问题。（可以采取的措施包括粒度适">
+<meta name="keywords" content="后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后端微服务个人学习 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2018/07/09/后端微服务学习/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="后端微服务个人学习参考文档：  服务网关的概念；  微服务如何设计公共组件库   中小型互联网公司微服务实践-经验和教训  Spring Cloud在国内中小型公司能用起来吗？  微服务的4个设计原则和19个解决方案 ​   1. 优点： 简单灵活的，能够独立部署 松耦合的，高内聚的，易扩展 语言工具灵活； 复杂度可控等等  2. 缺点： 分布式调用造成的性能、延迟问题。（可以采取的措施包括粒度适">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1fprc6a1z1jj313q0eodkl.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1fprd8asq6nj312g15uau9.jpg">
+<meta property="og:updated_time" content="2018-07-09T03:24:24.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后端微服务个人学习 | Mr.Fan">
+<meta name="twitter:description" content="后端微服务个人学习参考文档：  服务网关的概念；  微服务如何设计公共组件库   中小型互联网公司微服务实践-经验和教训  Spring Cloud在国内中小型公司能用起来吗？  微服务的4个设计原则和19个解决方案 ​   1. 优点： 简单灵活的，能够独立部署 松耦合的，高内聚的，易扩展 语言工具灵活； 复杂度可控等等  2. 缺点： 分布式调用造成的性能、延迟问题。（可以采取的措施包括粒度适">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcly1fprc6a1z1jj313q0eodkl.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">后端微服务个人学习</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-09" class="post-meta__date date">2018-07-09</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/后端/">后端</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="后端微服务个人学习"><a href="#后端微服务个人学习" class="headerlink" title="后端微服务个人学习"></a>后端微服务个人学习</h2><p>参考文档：</p>
+<ol>
+<li><p><a href="http://www.cnblogs.com/java-zhao/p/6716059.html" target="_blank" rel="noopener">服务网关的概念</a>；</p>
+</li>
+<li><p><a href="https://www.oschina.net/question/1989321_2269048" target="_blank" rel="noopener">微服务如何设计公共组件库</a></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fprc6a1z1jj313q0eodkl.jpg" alt="img"></p>
+</li>
+<li><p><a href="http://www.ityouknow.com/springcloud/2017/10/19/micro-service-practice.html" target="_blank" rel="noopener">中小型互联网公司微服务实践-经验和教训</a></p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s/vnWXpH5pv-FAzLZfbgTGvg" target="_blank" rel="noopener">Spring Cloud在国内中小型公司能用起来吗？</a></p>
+</li>
+<li><p><a href="http://p.primeton.com/articles/59b0f9244be8e61fea00be67" target="_blank" rel="noopener">微服务的4个设计原则和19个解决方案</a></p>
+<p>​</p>
+</li>
+</ol>
+<h2 id="1-优点："><a href="#1-优点：" class="headerlink" title="1. 优点："></a>1. 优点：</h2><ol>
+<li>简单灵活的，能够独立部署</li>
+<li>松耦合的，高内聚的，易扩展</li>
+<li>语言工具灵活；</li>
+<li>复杂度可控等等</li>
+</ol>
+<h2 id="2-缺点："><a href="#2-缺点：" class="headerlink" title="2. 缺点："></a>2. 缺点：</h2><ol>
+<li>分布式调用造成的性能、延迟问题。（可以采取的措施包括粒度适中、批量、高性能RPC、异步通信等）</li>
+<li>整体复杂度提升，运维复杂度提升；</li>
+<li>微服务涉及分布式</li>
+</ol>
+<h2 id="3-推荐使用方式："><a href="#3-推荐使用方式：" class="headerlink" title="3. 推荐使用方式："></a>3. 推荐使用方式：</h2><ol>
+<li>规模大（团队超过10人）</li>
+<li>业务复杂度高（系统超过5个子模块）</li>
+<li>需要长期演进（项目开发和维护周期超过半年）</li>
+</ol>
+<h2 id="4-部分参考原则："><a href="#4-部分参考原则：" class="headerlink" title="4. 部分参考原则："></a>4. 部分参考原则：</h2><ol>
+<li><p>AKF拆分原则；</p>
+<ol>
+<li>多实例水平复制；</li>
+<li>基于数据分区；</li>
+<li>基于业务分区。</li>
+</ol>
+</li>
+<li><p>前后端分离</p>
+</li>
+<li><p>无状态服务</p>
+</li>
+<li><p>Restful通信风格 </p>
+<p>​</p>
+</li>
+</ol>
+<p>个人一些感受：</p>
+<ol>
+<li><p>目前就是springBoot写对应的公共服务，利用rest进行调用，暂时用不到spring Cloud那么复杂的生态系统；</p>
+</li>
+<li><p>个人感觉所谓的分就是目前的一个个写spring boot的项目，合的话其实就是采取spring Cloud做服务网关，服务调用等的合并，但是我们目前可能用不到spring Cloud那么复杂的流程，后期的话，发展到一定阶段感觉可以利用Spring Cloud去做微服务一整套的事情。</p>
+</li>
+<li><p>附一下简单的Spring Cloud 的生态图；参考文档网址中的 <img src="https://ws3.sinaimg.cn/large/006tKfTcly1fprd8asq6nj312g15uau9.jpg" alt="img">微服务的概念源于2014年3月Martin Fowler所写的一篇文章“<a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener">Microservices</a>”。</p>
+</li>
+<li><p>个人感觉nginx就是属于完整的微服务生态系统中的服务网关那一层，不知道理解的对不对，还需要再进行研究<a href="http://oopsguy.com/books/microservices/2-using-an-api-gateway.html#microservices-in-action" target="_blank" rel="noopener">微服务，从设计到部署</a></p>
+<p>​</p>
+</li>
+</ol>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

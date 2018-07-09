@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      js原型链学习 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js原型链学习 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2018/07/09/js原型链学习/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-09T03:25:06.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js原型链学习 | Mr.Fan">
+<meta name="twitter:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">js原型链学习</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-09" class="post-meta__date date">2018-07-09</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/javascript/">javascript</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="js原型链学习"><a href="#js原型链学习" class="headerlink" title="js原型链学习"></a>js原型链学习</h2><ol>
+<li><p>每个<strong>函数对象</strong>都有一个<code>prototype</code> 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的<strong>原型对象</strong>（prototype属性）；</p>
+<p>JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做<code>__proto__</code> 的内置属性，用于指向创建它的<strong>构造函数</strong>的<strong>原型对象</strong>。</p>
+</li>
+<li><p>函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的<strong>实例</strong>的原型。</p>
+<p>每一个JavaScript对象(除了 null )都具有的一个属性，叫<code>__proto__</code>，这个属性会指向该对象的原型。</p>
+<p>也就是实例的原型是创建它的构造函数的 prototype 属性，也就是构造函数的原型对象。</p>
+</li>
+<li><p>原型对象和原型不一样，原型对象是一个普通对象，而原型是指实例的原型，实例具有的是原型（<code>__proto__</code>），原型对象其实就是指函数的prototype对象。</p>
+</li>
+<li><p>每一个JavaScript对象(除了 null )都具有的一个属性，叫<code>__proto__</code>，这个属性会指向该对象的原型，其值就是创建它的构造函数的原型对象，也就是说指向构造函数的原型对象。</p>
+</li>
+<li><p>原型对象就是 Person.prototype，是一个普通对象</p>
+</li>
+<li><p>构造函数必然是函数对象，所以构造函数必然有<code>prototype</code> 属性指向它的<strong>原型对象</strong></p>
+<p>​</p>
+<p>​</p>
+<ol>
+<li><p><code>person1.__proto__</code> 是什么？</p>
+<p><code>person1.__proto__</code> 指向person1这个实例的构造函数的原型对象，也就是Person.prototype;换种理解<code>person1.__proto__</code>指向person1的原型，它从构造函数的prototype中获得继承的方法与属性，也就是说它的原型是Person.prototype。</p>
+</li>
+<li><p><code>Person.__proto__</code> 是什么？</p>
+<p><code>Person.__proto__</code>可以理解为Person是一个function，是通过new Function来的，所以是Function的实例，也就是指向Function的原型对象，也就是指向Function.prototype。也可以理解为指向Person这个函数对象的原型，函数对象的构造函数是Funtion，也就是指向Function.prototype。</p>
+</li>
+<li><p><code>Person.prototype.__proto__</code> 是什么？</p>
+<p>分步看，Person.prototype就是指这个构造函数的原型对象，如果new Person的话，实例的原型就是这个，但是它的本质是一个对象，对象的原型就是Object.prototype</p>
+</li>
+<li><p><code>Object.__proto__</code> 是什么？</p>
+<p><code>Object.__proto__</code>同2，Object是一个function，通过new Function来的，是一个专门用来当构造函数创建对象的一个函数对象，所以还是我指向Function.prototype</p>
+</li>
+<li><p><code>Object.prototype__proto__</code> 是什么？</p>
+<p>那么，<code>Object.prototype</code>对象有没有它的原型呢？回答是<code>Object.prototype</code>的原型是<code>null</code>。<code>null</code>没有任何属性和方法，也没有自己的原型。因此，原型链的尽头就是<code>null</code>。</p>
+<p>​</p>
+</li>
+</ol>
+<p>​</p>
+</li>
+</ol>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

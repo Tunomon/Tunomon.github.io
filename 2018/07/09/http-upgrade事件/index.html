@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      http-upgrade事件 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-upgrade事件 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2018/07/09/http-upgrade事件/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-09T05:31:48.051Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http-upgrade事件 | Mr.Fan">
+<meta name="twitter:description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">http-upgrade事件</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-09" class="post-meta__date date">2018-07-09</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="部分Http-upgrade事件学习"><a href="#部分Http-upgrade事件学习" class="headerlink" title="部分Http upgrade事件学习"></a>部分Http upgrade事件学习</h2><p><a href="https://imququ.com/post/protocol-negotiation-in-http2.html" target="_blank" rel="noopener">谈谈 HTTP/2 的协议协商机制</a><br><a href="https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/http.client.md" target="_blank" rel="noopener">nodejs-learning-guide</a></p>
+<p><strong>1. 通用首部字段：Upgrade</strong></p>
+<p>检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议</p>
+<p>客户端请求：</p>
+<p>GMT /index.htm HTTP/1.1</p>
+<p>Upgrade: TLS/1.0</p>
+<p>Connection: Upgrade</p>
+<p>服务器响应:</p>
+<p>HTTP/1.1 101 Switching Protocols</p>
+<p>Upgrade: TLS/1.0, HTTP/1.1</p>
+<p>Connection: Upgrade</p>
+<p>上面的例子中，首部字段Upgrade指定的值为TLS/1.0，这里的两个首部字段的对应关系，</p>
+<p>的值被指定为Upgrade。</p>
+<p>Upgrade对象仅限于客户端和邻近服务器之间，因此，使用首部字段Upgrade时，还需要额外指定Connection Upgrade</p>
+<p>对于附有首部字段Upgrade的请求，服务器可以用101Switch Protocols状态码作为响应返回</p>
+<p><strong>2. MDN介绍</strong></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Protocol_upgrade_mechanism" target="_blank" rel="noopener">MDN中文Upgrage</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Protocol_upgrade_mechanism" target="_blank" rel="noopener">MDN英文Upgrage</a></p>
+<p><code>Connection: Upgrade</code></p>
+<p>The <code>Connection</code> header is set to <code>&quot;Upgrade&quot;</code> to indicate that an upgrade is requested.</p>
+<p><code>Upgrade: *protocols*</code></p>
+<p>The <code>Upgrade</code> header specifies one or more comma-separated protocol names, in order of preference.</p>
+<p><strong>3. NodeJs的upgrade事件</strong></p>
+<p><a href="http://docs.pythontab.com/nodejs/httpclient/" target="_blank" rel="noopener">http://docs.pythontab.com/nodejs/httpclient/</a></p>
+<ul>
+<li>Client: </li>
+</ul>
+<p>Event: ‘upgrade’<br> <code>function (request, socket, head)</code></p>
+<p>当服务器响应upgrade 请求时触发此事件，如果这个消息没有被监听，客户端接收到一个upgrade 头的话会导致 这个连接被关闭。</p>
+<ul>
+<li>Server:</li>
+</ul>
+<p>Event: ‘upgrade’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function (request, socket, head)</span><br></pre></td></tr></table></figure>
+<p>。如果这个事件没有监听，那么请求upgrade 的客户端对<br>应的连接将被关闭。</p>
+<p>1.参数“request”代表一个http 请求，和’request’事件的参数意义相同。</p>
+<p>2.socket 是在服务器与客户端之间连接用的网络socket</p>
+<p>3.head 是Buffer 的一个实例,是upgraded stream(升级版stream….应当就是http upgrade)所发出的第一个包，这个参数可以为空。</p>
+<p>当此事件被触发后，该请求所使用的socket 并不会有一个数据事件的监听者,这意味着你如果需要处理通过这个<br>SOCKET 发送到服务器端的数据的话则需要自己绑定数据事件监听器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1：Server端收到upgrade事件(每当一个客户端请求一个http upgrade 时候发出此消息).客户端发送的要求就是Connection和Upgrade都需要有。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2： Client端，当服务器响应upgrade 请求时触发此事件，即返回101等。</span><br></pre></td></tr></table></figure></p>
+<p>const http = require(‘http’);</p>
+<p>// 创建一个 HTTP 服务器<br>const srv = http.createServer( (req, res) =&gt; {<br>  res.writeHead(200, { ‘Content-Type’: ‘text/plain’ });<br>  res.end(‘okay’);<br>});<br>srv.on(‘upgrade’, (req, socket, head) =&gt; {<br>  console.log(‘req’);<br>  socket.write(‘HTTP/1.1 101 Web Socket Protocol Handshake\r\n’ +<br>               // ‘Upgrade: WebSocket\r\n’ +<br>               ‘Connection: Upgrade\r\n’ +<br>               ‘\r\n’);</p>
+<p>  socket.pipe(socket);<br>});</p>
+<p>// 服务器正在运行<br>srv.listen(1337, ‘127.0.0.1’, () =&gt; {</p>
+<p>  // 发送一个请求<br>  const options = {<br>    port: 1337,<br>    hostname: ‘127.0.0.1’,<br>    headers: {<br>      ‘Connection’: ‘Upgrade’,<br>      ‘Upgrade’: ‘websocket’<br>    }<br>  };</p>
+<p>  const req = http.request(options);<br>  req.end();<br>  console.log(‘lal’);<br>  // 2. 当服务器响应upgrade 请求时触发此事件<br>  req.on(‘upgrade’, (res, socket, upgradeHead) =&gt; {</p>
+<pre><code>3. console.log(&apos;got upgraded!&apos;);
+socket.end();
+process.exit(0);
+</code></pre><p>  });<br>});<br><code>`</code></p>
+<p><strong>4. NodeJs的socket.io</strong><br><a href="https://www.zhihu.com/question/31965911/answer/156849718" target="_blank" rel="noopener">socket.io 的详细工作流程是怎样的？–知乎</a><br>在其中”如果支持，就会启动一个 WebSocket 连接”这一段时候启动WebSocket连接，并且触发connection事件</p>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
