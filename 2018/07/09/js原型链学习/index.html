@@ -7,7 +7,7 @@
     
 
     <title>
-      js原型链学习 | Mr.Fan 
+      Js原型链学习 | Mr.Fan 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+    <meta name="description" content="每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型。 每一个">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js原型链学习 | Mr.Fan">
+<meta property="og:title" content="Js原型链学习 | Mr.Fan">
 <meta property="og:url" content="http://tunomon.me/2018/07/09/js原型链学习/index.html">
 <meta property="og:site_name" content="Mr.Fan">
-<meta property="og:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta property="og:description" content="每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型。 每一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-09T05:52:07.953Z">
+<meta property="og:updated_time" content="2018-07-15T09:28:08.821Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js原型链学习 | Mr.Fan">
-<meta name="twitter:description" content="js原型链学习 每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的">
+<meta name="twitter:title" content="Js原型链学习 | Mr.Fan">
+<meta name="twitter:description" content="每个函数对象都有一个prototype 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的原型对象（prototype属性）； JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__ 的内置属性，用于指向创建它的构造函数的原型对象。  函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型。 每一个">
     
     
     
@@ -190,7 +190,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">js原型链学习</h1>
+    <h1 class="post-title">Js原型链学习</h1>
 
     
 
@@ -216,7 +216,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="js原型链学习"><a href="#js原型链学习" class="headerlink" title="js原型链学习"></a>js原型链学习</h2><ol>
+    <ol>
 <li><p>每个<strong>函数对象</strong>都有一个<code>prototype</code> 属性，这个属性指向这个函数（即函数对象，因为这个函数也是对象，是一个函数对象）的<strong>原型对象</strong>（prototype属性）；</p>
 <p>JS 在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做<code>__proto__</code> 的内置属性，用于指向创建它的<strong>构造函数</strong>的<strong>原型对象</strong>。</p>
 </li>

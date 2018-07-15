@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      函数声明&amp;&amp;函数声明表达式 | Mr.Fan 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Mr.Fan">
+    
+    
+
+    <meta name="description" content="函数声明  函数声明要素：function关键字，functionName函数名，arg参数（可选）  语法  123function functionName(arg)&amp;#123;    //函数体&amp;#125;    函数表达式  函数表达式要素：var关键字，variableName变量名，表达式赋值等号，声明变量后的分号，functionName函数名（可选，没有的话叫做匿名函数）  语法">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数声明&amp;&amp;函数声明表达式 | Mr.Fan">
+<meta property="og:url" content="http://tunomon.me/2018/07/15/函数声明/index.html">
+<meta property="og:site_name" content="Mr.Fan">
+<meta property="og:description" content="函数声明  函数声明要素：function关键字，functionName函数名，arg参数（可选）  语法  123function functionName(arg)&amp;#123;    //函数体&amp;#125;    函数表达式  函数表达式要素：var关键字，variableName变量名，表达式赋值等号，声明变量后的分号，functionName函数名（可选，没有的话叫做匿名函数）  语法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-15T14:01:19.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数声明&amp;&amp;函数声明表达式 | Mr.Fan">
+<meta name="twitter:description" content="函数声明  函数声明要素：function关键字，functionName函数名，arg参数（可选）  语法  123function functionName(arg)&amp;#123;    //函数体&amp;#125;    函数表达式  函数表达式要素：var关键字，variableName变量名，表达式赋值等号，声明变量后的分号，functionName函数名（可选，没有的话叫做匿名函数）  语法">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Mr.Fan</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/Tunomon" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">函数声明&amp;&amp;函数声明表达式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-15" class="post-meta__date date">2018-07-15</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/JavaScript/">JavaScript</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <ol>
+<li><p>函数声明</p>
+<ol>
+<li><p>函数声明要素：function关键字，functionName函数名，arg参数（可选）</p>
+<ul>
+<li>语法</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">arg</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>函数表达式</p>
+<ol>
+<li><p>函数表达式要素：var关键字，variableName变量名，表达式赋值等号，声明变量后的分号，functionName函数名（可选，没有的话叫做匿名函数）</p>
+<ul>
+<li><p>语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variableName = <span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">arg</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//函数体</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匿名函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> square = <span class="function"><span class="keyword">function</span>(<span class="params">number</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> x = square(<span class="number">4</span>); <span class="comment">// x 得到的值为16</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带名称（函数表达式也可以提供函数名，并且可以用于在函数内部使用来代指其本身，或者在调试器堆栈跟踪中鉴别该函数）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> factorial = <span class="function"><span class="keyword">function</span> <span class="title">fac</span>(<span class="params">n</span>) </span>&#123;<span class="keyword">return</span> n&lt;<span class="number">2</span> ? <span class="number">1</span> : n*fac(n<span class="number">-1</span>)&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(factorial(<span class="number">3</span>));</span><br><span class="line"><span class="keyword">var</span> x = square(<span class="number">4</span>); <span class="comment">// x 得到的值为16</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>区别：存在<strong>函数声明提升</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sayHi();<span class="comment">//能正常运行 弹Hi</span></span><br><span class="line">sayHi123();<span class="comment">//报错 Uncaught TypeError: sayHi123 is not a function(…)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">'Hi'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sayHi123 = <span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">'Hi123'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p> 参考文档(感谢)：<a href="https://segmentfault.com/a/1190000005039150" target="_blank" rel="noopener"> 深入浅出JavaScript：定义函数</a></p>
+</blockquote>
+
+  </section>
+
+  
+  
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

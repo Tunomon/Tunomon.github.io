@@ -7,7 +7,7 @@
     
 
     <title>
-      http-upgrade事件 | Mr.Fan 
+      部分Http-upgrade事件学习 | Mr.Fan 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,17 +16,17 @@
     
     
 
-    <meta name="description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+    <meta name="description" content="谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: HTTP/1.1 101 Switch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="http-upgrade事件 | Mr.Fan">
+<meta property="og:title" content="部分Http-upgrade事件学习 | Mr.Fan">
 <meta property="og:url" content="http://tunomon.me/2018/07/09/http-upgrade事件/index.html">
 <meta property="og:site_name" content="Mr.Fan">
-<meta property="og:description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+<meta property="og:description" content="谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: HTTP/1.1 101 Switch">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-09T05:31:48.051Z">
+<meta property="og:updated_time" content="2018-07-15T09:28:52.353Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="http-upgrade事件 | Mr.Fan">
-<meta name="twitter:description" content="部分Http upgrade事件学习谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: H">
+<meta name="twitter:title" content="部分Http-upgrade事件学习 | Mr.Fan">
+<meta name="twitter:description" content="谈谈 HTTP/2 的协议协商机制nodejs-learning-guide 1. 通用首部字段：Upgrade 检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议 客户端请求： GMT /index.htm HTTP/1.1 Upgrade: TLS/1.0 Connection: Upgrade 服务器响应: HTTP/1.1 101 Switch">
     
     
     
@@ -189,7 +189,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">http-upgrade事件</h1>
+    <h1 class="post-title">部分Http-upgrade事件学习</h1>
 
     
 
@@ -210,7 +210,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="部分Http-upgrade事件学习"><a href="#部分Http-upgrade事件学习" class="headerlink" title="部分Http upgrade事件学习"></a>部分Http upgrade事件学习</h2><p><a href="https://imququ.com/post/protocol-negotiation-in-http2.html" target="_blank" rel="noopener">谈谈 HTTP/2 的协议协商机制</a><br><a href="https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/http.client.md" target="_blank" rel="noopener">nodejs-learning-guide</a></p>
+    <p><a href="https://imququ.com/post/protocol-negotiation-in-http2.html" target="_blank" rel="noopener">谈谈 HTTP/2 的协议协商机制</a><br><a href="https://github.com/chyingp/nodejs-learning-guide/blob/master/%E6%A8%A1%E5%9D%97/http.client.md" target="_blank" rel="noopener">nodejs-learning-guide</a></p>
 <p><strong>1. 通用首部字段：Upgrade</strong></p>
 <p>检测http协议及其他协议是否可使用更高的版本进行通信，其参数值可用来指定一个完全不同的通信协议</p>
 <p>客户端请求：</p>
